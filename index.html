@@ -390,6 +390,17 @@ else{sec.classList.remove('in-view')}
 window.addEventListener('scroll',check);
 check();
 </script>
+<script>
+const mainTitle = document.querySelector('.main-title');
+
+window.addEventListener('scroll', () => {
+    if(window.scrollY > 100){
+        mainTitle.classList.add('hide');
+    } else {
+        mainTitle.classList.remove('hide');
+    }
+});
+</script>
 
 </body>
 </html>
