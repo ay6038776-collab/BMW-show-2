@@ -390,24 +390,3 @@ body{
 }
 
 
-/* MAIN TITLE */
-.main-title{
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    font-size:64px;
-    letter-spacing:8px;
-    color:#ff0000;
-    text-align:center;
-    z-index:10;
-    pointer-events:none;
-    animation:flicker 2.5s infinite;
-    transition:opacity .8s ease, transform .8s ease;
-}
-
-/* لما نعمل Scroll */
-.main-title.hide{
-    opacity:0;
-    transform:translate(-50%, -60%);
-}
