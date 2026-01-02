@@ -390,3 +390,10 @@ body{
 }
 
 
+.car-video {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+    border: 2px solid red;
+    filter: contrast(1.2) brightness(0.9);
+}
