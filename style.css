@@ -174,3 +174,40 @@ body{
         font-size:32px;
     }
 }
+
+
+/* ROW اللي فيها الجدول + الصورة */
+.top-row {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+/* الفيديو تحت */
+.video-row {
+    margin-top: 25px;
+    text-align: center;
+}
+
+/* حجم الفيديو */
+.car-video {
+    width: 100%;
+    max-width: 420px;   /* 👈 خليته صغير */
+    max-height: 240px;  /* 👈 مش طويل */
+    border: 2px solid red;
+    border-radius: 6px;
+    filter: contrast(1.2) brightness(0.9);
+}
+
+/* موبايل */
+@media (max-width: 768px) {
+    .top-row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .car-video {
+        max-width: 100%;
+        max-height: 220px;
+    }
+}
