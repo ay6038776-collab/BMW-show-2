@@ -1,4 +1,4 @@
-/* RESET */
+/* ===== RESET ===== */
 *{
     margin:0;
     padding:0;
@@ -6,208 +6,351 @@
 }
 
 body{
-    background:#000;
-    color:#eee;
+    background: radial-gradient(circle at top, #0a0a0a, #000 70%);
+    color:#eaeaea;
     font-family:'DotGothic16', monospace;
     overflow-x:hidden;
 }
 
-/* SMOKE OVERLAY */
+/* ===== DYNAMIC OVERLAY ===== */
 .overlay{
     position:fixed;
     inset:0;
-    background:radial-gradient(circle at center, rgba(255,0,0,.12), transparent 65%);
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,0,0,.15), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(255,0,0,.08), transparent 45%);
+    animation: moveSmoke 12s infinite alternate ease-in-out;
     pointer-events:none;
     z-index:0;
 }
 
-/* SECTION */
+@keyframes moveSmoke{
+    from{filter:blur(0px)}
+    to{filter:blur(2px)}
+}
+
+/* ===== SECTION ===== */
 .car-section{
-    padding:90px 30px;
+    padding:120px 30px;
     position:relative;
     z-index:1;
 }
 
-/* MAIN LAYOUT */
+/* ===== CARD LAYOUT ===== */
 .content{
-    display:flex;
-    gap:50px;
-    max-width:1300px;
+    max-width:1400px;
     margin:auto;
-    align-items:flex-start;
+    display:flex;
+    gap:60px;
+    align-items:center;
+
+    background:rgba(255,255,255,.03);
+    backdrop-filter: blur(14px);
+    border:1px solid rgba(255,0,0,.25);
+    border-radius:22px;
+    padding:60px;
+
+    box-shadow:
+      0 0 40px rgba(255,0,0,.15),
+      inset 0 0 40px rgba(255,255,255,.03);
+
     opacity:0;
-    transform:translateY(50px);
-    transition:all .9s ease;
+    transform:translateY(80px) scale(.95);
+    transition:all 1s cubic-bezier(.19,1,.22,1);
 }
 
 .car-section.in-view .content{
     opacity:1;
-    transform:translateY(0);
+    transform:translateY(0) scale(1);
 }
 
-/* AUTO LEFT / RIGHT */
+/* AUTO FLIP */
 .car-section:nth-child(even) .content{
     flex-direction:row-reverse;
 }
 
-/* INFO SIDE */
+/* ===== INFO ===== */
 .info{
     flex:1;
 }
 
-/* TITLE */
+/* ===== TITLES ===== */
 .title{
-    font-size:42px;
-    color:#ff0000;
-    margin-bottom:25px;
-    letter-spacing:4px;
-}
-
-/* GLITCH EFFECT */
-.glitch{
+    font-size:48px;
+    letter-spacing:5px;
+    color:#ff1e1e;
+    margin-bottom:30px;
+    text-transform:uppercase;
     position:relative;
-}
-.glitch::before,
-.glitch::after{
-    content:attr(data-text);
-    position:absolute;
-    left:0;
-    width:100%;
-    opacity:.7;
-}
-.glitch::before{
-    color:#ff0000;
-    animation:glitch1 2s infinite;
-}
-.glitch::after{
-    color:#ffffff;
-    animation:glitch2 2s infinite;
+    padding-bottom:18px;
 }
 
-/* SPECS TABLE */
+/* الخط الأحمر تحت العنوان */
+/* ===== TITLES ===== */
+.title{
+    font-size:48px;
+    letter-spacing:5px;
+    color:#ff1e1e;
+    margin-bottom:30px;
+    text-transform:uppercase;
+    position:relative;
+    padding-bottom:10px; /* خلى المسافة كافية للخط */
+    z-index:2; /* فوق أي شيء */
+}
+
+/* الخط الأحمر تحت العنوان */
+.title::after{
+    content:"";
+    position:absolute;
+    bottom:0; /* أسفل العنوان مباشرة */
+    left:0;
+    width:0;
+    height:4px;
+    background:linear-gradient(
+        90deg,
+        #ff0000,
+        #ff4d4d,
+        #ff0000
+    );
+    box-shadow:0 0 20px rgba(255,0,0,.8);
+    transition:width .7s ease;
+    z-index:1; /* خلف العنوان */
+}
+
+/* عند hover يظهر الخط */
+.content:hover .title::after{
+    width:70%;
+}
+
+/* ===== FLOAT TEXT OUT ON HOVER ===== */
+.info .title,
+.info .specs,
+.info .description,
+.info .legend{
+    position:relative;
+    transition: transform .9s cubic-bezier(.19,1,.22,1);
+    z-index:2;
+}
+
+.content:hover .info .title{
+    transform: translateY(-80px); /* أعلى شوي */
+}
+.content:hover .info .specs{
+    transform: translateY(-100px);
+}
+.content:hover .info .description{
+    transform: translateY(-120px);
+}
+.content:hover .info .legend{
+    transform: translateY(-140px);
+}
+/* ===== SPECS ===== */
 .specs{
     width:100%;
     border-collapse:collapse;
-    margin-bottom:20px;
 }
 .specs tr{
-    border-bottom:1px solid rgba(255,0,0,.35);
+    border-bottom:1px solid rgba(255,0,0,.25);
 }
 .specs td{
-    padding:12px 10px;
-    font-size:13px;
+    padding:14px 12px;
+    font-size:14px;
 }
 .specs td:first-child{
-    color:#ff2b2b;
-    width:35%;
+    color:#ff4040;
+    width:40%;
+    letter-spacing:1px;
 }
 
-/* DESCRIPTION */
+/* ===== TEXT ===== */
 .description{
-    font-size:13px;
-    line-height:1.9;
-    margin-top:15px;
+    margin-top:20px;
+    font-size:14px;
+    line-height:2;
     color:#ccc;
 }
 
-/* LEGEND */
 .legend{
-    margin-top:22px;
-    letter-spacing:2px;
-    color:#aaa;
+    margin-top:28px;
+    letter-spacing:3px;
+    color:#999;
 }
 
-/* MEDIA SIDE (IMAGE + VIDEO) */
+/* ===== MEDIA ===== */
 .car-box{
     flex:1;
     display:flex;
     flex-direction:column;
-    gap:20px;
+    gap:30px; /* المسافة بين الصورة والفيديو */
     align-items:center;
 }
 
 /* IMAGE */
 .car-box img{
     width:100%;
-    max-width:520px;
-    filter:contrast(1.35) brightness(.85);
-    opacity:.95;
-    border:2px solid rgba(255,0,0,.4);
+    max-width:460px; /* اصغر شوية */
+    border-radius:18px;
+    border:1px solid rgba(255,0,0,.5);
+    filter:contrast(1.25) brightness(.9);
+    transition:all .8s cubic-bezier(.19,1,.22,1);
+    box-shadow:0 25px 80px rgba(0,0,0,.7);
+}
+
+.car-box img:hover{
+    transform:perspective(1000px) rotateY(-8deg) scale(1.04);
+    box-shadow:0 40px 120px rgba(255,0,0,.4);
 }
 
 /* VIDEO */
 .car-video{
     width:100%;
     max-width:520px;
-    border:2px solid red;
-    filter:contrast(1.2) brightness(.9);
+    max-height:260px;
+    border-radius:14px;
+    border:1px solid rgba(255,0,0,.7);
+    filter:contrast(1.15) brightness(.9);
+    box-shadow:0 20px 60px rgba(0,0,0,.8);
+    transition:.6s ease;
+    opacity:.92;
 }
 
-/* GLITCH ANIMATIONS */
-@keyframes glitch1{
-    0%{transform:translate(0)}
-    20%{transform:translate(-2px,2px)}
-    40%{transform:translate(-2px,-2px)}
-    60%{transform:translate(2px,2px)}
-    80%{transform:translate(2px,-2px)}
-}
-@keyframes glitch2{
-    0%{transform:translate(0)}
-    20%{transform:translate(2px,-2px)}
-    40%{transform:translate(2px,2px)}
-    60%{transform:translate(-2px,-2px)}
-    80%{transform:translate(-2px,2px)}
+.car-video:hover{
+    transform:scale(1.03);
+    opacity:1;
 }
 
-/* RESPONSIVE */
-@media(max-width:768px){
+/* ===== FLOAT TEXT OUT ON HOVER ===== */
+.info .title,
+.info .specs,
+.info .description,
+.info .legend{
+    position:relative;
+    transition: transform .9s cubic-bezier(.19,1,.22,1);
+    z-index:2;
+}
+
+.content:hover .info .title{
+    transform: translateY(-70px);
+}
+.content:hover .info .specs{
+    transform: translateY(-90px);
+}
+.content:hover .info .description{
+    transform: translateY(-110px);
+}
+.content:hover .info .legend{
+    transform: translateY(-130px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
     .content{
         flex-direction:column !important;
+        padding:40px 25px;
         text-align:center;
     }
 
-    .car-box{
-        align-items:center;
-    }
-
     .title{
-        font-size:32px;
+        font-size:34px;
+    }
+
+    .car-box img,
+    .car-video{
+        max-width:100%;
+        height:auto;
     }
 }
 
-
-/* ROW اللي فيها الجدول + الصورة */
-.top-row {
-    display: flex;
-    gap: 40px;
-    align-items: center;
+/* ===== SCROLLBAR STYLING ===== */
+::-webkit-scrollbar{
+    width:10px;
+}
+::-webkit-scrollbar-track{
+    background:rgba(255,255,255,.05);
+}
+::-webkit-scrollbar-thumb{
+    background:rgba(255,0,0,.4);
+    border-radius:5px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background:rgba(255,0,0,.7);
 }
 
-/* الفيديو تحت */
-.video-row {
-    margin-top: 25px;
-    text-align: center;
-}
-
-/* حجم الفيديو */
-.car-video {
-    width: 100%;
-    max-width: 420px;   /* 👈 خليته صغير */
-    max-height: 240px;  /* 👈 مش طويل */
-    border: 2px solid red;
-    border-radius: 6px;
-    filter: contrast(1.2) brightness(0.9);
-}
-
-/* موبايل */
-@media (max-width: 768px) {
-    .top-row {
-        flex-direction: column;
-        text-align: center;
+/* ===== MEDIA QUERY FOR VERY SMALL SCREENS ===== */
+@media(max-width:400px){
+    .content{
+        padding:30px 15px;
+        gap:40px;
     }
-
-    .car-video {
-        max-width: 100%;
-        max-height: 220px;
+    .title{
+        font-size:28px;
     }
+}
+
+/* ===== NAVBAR ===== */
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:70px;
+    background:rgba(0,0,0,0.8);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+    z-index:100;
+    backdrop-filter:blur(8px);
+    box-shadow:0 4px 20px rgba(0,0,0,0.5);
+}
+
+.navbar .logo{
+    color:#ff1e1e;
+    font-size:24px;
+    font-weight:bold;
+    letter-spacing:2px;
+    cursor:pointer;
+}
+
+
+.navbar .nav-links{
+    list-style:none;
+    display:flex;
+    gap:30px;
+}
+
+.navbar .nav-links li a{
+    color:#eaeaea;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:500;
+    transition:all 0.3s ease;
+    position:relative;
+}
+
+.navbar .nav-links li a:hover{
+    color:#ff1e1e;
+}
+
+.navbar .nav-links li a::after{
+    content:"";
+    position:absolute;
+    bottom:-5px;
+    left:0;
+    width:0;
+    height:2px;
+    background:#ff1e1e;
+    transition:width 0.3s ease;
+}
+
+.navbar .nav-links li a:hover::after{
+    width:100%;
+}
+/* ===== NAVBAR NORMAL FONT ===== */
+.navbar .logo,
+.navbar .nav-links li a {
+    font-family: Arial, Helvetica, sans-serif; /* خط واضح وطبيعي */
+    text-transform: none; /* يبقى الكلام عادي */
+    letter-spacing: normal; /* المسافة بين الحروف عادية */
+    font-weight: normal; /* عادي مش تقيل */
 }
